@@ -247,7 +247,7 @@ class InventoryItemsDateRange(APIView):
     serializer_class = InventorySerializer
 
     def get(self, request: Request, *args, **kwargs) -> Response:
-        inventory = self.get_queryset.filter(year__gte=kwargs['date'])
+        inventory = self.get_queryset.filter(year__gte=kwargs['date1'], year_lte=kwargs['date2'])
         serializer = self.serializer_class(inventory)
         return Response(serializer.data, status=200)
 
