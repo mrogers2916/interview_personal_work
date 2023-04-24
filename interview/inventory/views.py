@@ -238,12 +238,10 @@ class InventoryItemsDeactivateOrderView(APIView):
     serializer_class = InventoryTagSerializer
 
     def post(self, request: Request, *args, **kwargs) -> Response:
-
         serializer = self.serializer_class(data=request.data)
 
         if not serializer.is_valid():
             return Response(serializer.errors, status=400)
-        
         serializer.save()
         
         return Response(serializer.data, status=201)
