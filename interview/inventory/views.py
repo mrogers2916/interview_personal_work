@@ -240,7 +240,6 @@ class InventoryItemsDeactivateOrderView(APIView):
     def post(self, request: Request, *args, **kwargs) -> Response:
 
         serializer = self.serializer_class(data=request.data)
-        print(serializer)
 
         if not serializer.is_valid():
             return Response(serializer.errors, status=400)
@@ -248,6 +247,13 @@ class InventoryItemsDeactivateOrderView(APIView):
         serializer.save()
         
         return Response(serializer.data, status=201)
+
+    def get(self, request: Request, *args, **kwargs) -> Response:
+        serializer = self.serializer_class(self.get_queryset(), many=True)
+        return Response(serializer.data, status=200)
+
+    def get_queryset(self):
+        return self.queryset.all()
 
 class InventoryItemsDateRange(APIView):
     queryset = Inventory.objects.all()
