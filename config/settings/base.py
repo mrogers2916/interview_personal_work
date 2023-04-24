@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'interview',
     'interview.core',
     'interview.inventory',
-    'interview.order'
+    'interview.order',
+    'interview.profiles',
 ]
 
 MIDDLEWARE = [
