@@ -15,6 +15,6 @@ urlpatterns = [
     path('', InventoryListCreateView.as_view(), name='inventory-list'),
     path('createdAfter/<str:date>/', InventoryItemsCreatedCertainDay.as_view(), name='inventory-date-created-list'),
     path('deactivate/<int:id>/', InventoryItemsDeactivateOrderView.as_view(), name='inventory-items-deactivate-order-view'),
-    path('deactivate/<str:date1>/<str:date2>/', InventoryItemsDateRange.as_view(), name='inventory-items-date-range'),
+    path('createdBetween/<str:date1>/<str:date2>/', InventoryItemsDateRange.as_view(), name='inventory-items-date-range'),
     
 ]

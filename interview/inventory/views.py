@@ -225,16 +225,23 @@ class InventoryItemsCreatedCertainDay(APIView):
     serializer_class = InventorySerializer
 
     def get(self, request: Request, *args, **kwargs) -> Response:
-        inventory = self.get_queryset.filter(year__gte=kwargs['date'])
-        serializer = self.serializer_class(inventory)
+        inventory = self.get_queryset(date=kwargs['date'])
+        serializer = self.serializer_class(inventory, many=True)
+        
         return Response(serializer.data, status=200)
+
+    def get_queryset(self, date):
+        return self.queryset.filter(created_at__gte=date)
 
 class InventoryItemsDeactivateOrderView(APIView):
     queryset = Inventory.objects.all()
     serializer_class = InventoryTagSerializer
 
     def post(self, request: Request, *args, **kwargs) -> Response:
+
         serializer = self.serializer_class(data=request.data)
+        print(serializer)
+
         if not serializer.is_valid():
             return Response(serializer.errors, status=400)
         
@@ -247,7 +254,12 @@ class InventoryItemsDateRange(APIView):
     serializer_class = InventorySerializer
 
     def get(self, request: Request, *args, **kwargs) -> Response:
-        inventory = self.get_queryset.filter(year__gte=kwargs['date1'], year_lte=kwargs['date2'])
-        serializer = self.serializer_class(inventory)
+        inventory = self.get_queryset(date1=kwargs['date1'], date2=kwargs['date2'])
+        serializer = self.serializer_class(inventory, manay=True)
         return Response(serializer.data, status=200)
+
+    def get_queryset(self, date1, date2):
+        return self.queryset.filter(created_at__gte=kwargs['date1'], created_at_lte=kwargs['date2'])
+
+
 
