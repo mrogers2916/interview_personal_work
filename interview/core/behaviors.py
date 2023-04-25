@@ -23,6 +23,7 @@ class TimestampedModel(models.Model):
     class Meta:
         abstract = True
 
+
 class TimestampedProfileModel(models.Model):
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
@@ -70,16 +71,6 @@ class UniqueNameModel(models.Model):
         except ObjectDoesNotExist:
             return None
 
-class UserProfileModel(models.Model):
-    user_name = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    avatar = models.ImageField()
-
-    class Meta:
-        abstract = True
 
 class IsStaffModel(models.Model):
     is_staff = models.BooleanField(default=True)
@@ -95,6 +86,7 @@ class IsStaffModel(models.Model):
     def disable(cls, pk: int):
         cls.objects.filter(pk=pk).update(is_staff=True)
 
+
 class IsSuperUserModel(models.Model):
     is_super_user= models.BooleanField(default=True)
     
@@ -109,6 +101,7 @@ class IsSuperUserModel(models.Model):
     def disable(cls, pk: int):
         cls.objects.filter(pk=pk).update(is_super_user=True)
 
+
 class IsAdminModel(models.Model):
     is_admin = models.BooleanField(default=True)
     
@@ -122,6 +115,7 @@ class IsAdminModel(models.Model):
     @classmethod
     def disable(cls, pk: int):
         cls.objects.filter(pk=pk).update(is_admin=True)
+
 
 class IsActiveModel(models.Model):
     is_active = models.BooleanField(default=True)
